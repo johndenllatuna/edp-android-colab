@@ -7,37 +7,46 @@ android {
     namespace = "com.example.myapplication"
     compileSdk {
         version = release(37) {
-            minorApiLevel = 1
-        }
-    }
 
-    defaultConfig {
-        applicationId = "com.example.myapplication"
-        minSdk = 32
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+            version = release(36) {
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            optimization {
-                enable = false
+                minorApiLevel = 1
             }
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
+
+        defaultConfig {
+            applicationId = "com.example.myapplication"
+
+            minSdk = 32
+            targetSdk = 37
+
+            minSdk = 36
+            targetSdk = 36
+
+            versionCode = 1
+            versionName = "1.0"
+
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        buildTypes {
+            release {
+                optimization {
+                    enable = false
+                }
+            }
+        }
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_11
+            targetCompatibility = JavaVersion.VERSION_11
+        }
+        buildFeatures {
+            compose = true
+        }
     }
 }
-
 dependencies {
+    implementation("androidx.compose.material:material-icons-extended")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
