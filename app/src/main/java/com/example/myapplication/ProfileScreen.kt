@@ -3,11 +3,7 @@ package com.example.myapplication
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ProfileForm(state: ProfileUiState, viewModel: ProfileViewModel) {
@@ -26,8 +22,7 @@ fun ProfileForm(state: ProfileUiState, viewModel: ProfileViewModel) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Text("My Profile", fontSize = 24.sp,
-            fontWeight = FontWeight.Bold)
+        Text("My Profile", fontSize = 24.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(12.dp))
 
         OutlinedTextField(
@@ -64,7 +59,6 @@ fun ProfileForm(state: ProfileUiState, viewModel: ProfileViewModel) {
         Spacer(Modifier.height(16.dp))
         Text("Skills", fontWeight = FontWeight.Bold)
 
-        // Type a skill + Add button
         Row(verticalAlignment = Alignment.CenterVertically) {
             OutlinedTextField(
                 value = state.newSkill,
@@ -78,7 +72,6 @@ fun ProfileForm(state: ProfileUiState, viewModel: ProfileViewModel) {
             }
         }
 
-        // One row per skill, each with a Remove button
         state.skills.forEach { skill ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -92,11 +85,20 @@ fun ProfileForm(state: ProfileUiState, viewModel: ProfileViewModel) {
         }
 
         Spacer(Modifier.height(20.dp))
+
         Button(
             onClick = { viewModel.showPreview() },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = state.name.isNotBlank() && state.email.isNotBlank()
         ) {
             Text("Preview")
+        }
+
+        OutlinedButton(
+            onClick = { viewModel.resetForm() },
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        ) {
+            Text("Clear")
         }
     }
 }
@@ -109,8 +111,7 @@ fun ProfilePreview(state: ProfileUiState, onBack: () -> Unit) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Text("Profile Preview", fontSize = 24.sp,
-            fontWeight = FontWeight.Bold)
+        Text("Profile Preview", fontSize = 24.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(12.dp))
 
         Text("Name: ${state.name}")
@@ -128,7 +129,7 @@ fun ProfilePreview(state: ProfileUiState, onBack: () -> Unit) {
         }
 
         Spacer(Modifier.height(20.dp))
-        OutlinedButton(onClick = onBack) {
+        OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
             Text("Back to edit")
         }
     }
@@ -144,5 +145,3 @@ fun ProfileScreen(viewModel: ProfileViewModel = viewModel()) {
         ProfileForm(state = state, viewModel = viewModel)
     }
 }
-
-
