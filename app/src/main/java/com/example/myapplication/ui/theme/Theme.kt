@@ -61,7 +61,7 @@ private val DarkColors = darkColorScheme(
 )
 
 @Composable
-fun ProfileTheme(
+fun LiceoAccountTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Off by default so this custom brand palette always wins over the
     // device wallpaper. Set to true to opt back into Material You dynamic color.
